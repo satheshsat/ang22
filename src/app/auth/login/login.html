@@ -1,0 +1,36 @@
+<div class="card">
+    <h4 class="card-header">Login</h4>
+    <div class="card-body">
+        <form (submit)="onSubmit($event)">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" [formField]="loginForm.email" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.email().errors().length }" />
+                @if(submitted){
+                    @for (error of loginForm.email().errors(); track error.kind) {
+                        <small style="color: red">{{ error.message }}</small>
+                    }
+                }
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" [formField]="loginForm.password" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.password().errors().length }" />
+                @if(submitted){
+                    @for (error of loginForm.password().errors(); track error.kind) {
+                       <small style="color: red">{{ error.message }}</small>
+                    }
+                }
+            </div>
+            <div>
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Login
+                </button>
+                <a routerLink="/auth/register" class="btn btn-link">Register</a>
+                <a routerLink="/auth/resetpass" class="btn btn-link">Reset Password</a>
+            </div>
+            <div *ngIf="message">
+                <p class="text-danger">{{message}}</p>
+            </div>
+        </form>
+    </div>
+</div>

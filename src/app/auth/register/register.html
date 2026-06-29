@@ -1,0 +1,44 @@
+<div class="card">
+    <h4 class="card-header">Register</h4>
+    <div class="card-body">
+        <form (submit)="onSubmit($event)">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" [formField]="registerForm.name" class="form-control" [ngClass]="{ 'is-invalid': submitted && registerForm.name().errors().length }" />
+                @if(submitted){
+                    @for (error of registerForm.name().errors(); track error.kind) {
+                        <small style="color: red">{{ error.message }}</small>
+                    }
+                }
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" [formField]="registerForm.email" class="form-control" [ngClass]="{ 'is-invalid': submitted && registerForm.email().errors().length }" />
+                @if(submitted){
+                    @for (error of registerForm.email().errors(); track error.kind) {
+                        <small style="color: red">{{ error.message }}</small>
+                    }
+                }
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" [formField]="registerForm.password" class="form-control" [ngClass]="{ 'is-invalid': submitted && registerForm.password().errors().length }" />
+                @if(submitted){
+                    @for (error of registerForm.password().errors(); track error.kind) {
+                       <small style="color: red">{{ error.message }}</small>
+                    }
+                }
+            </div>
+            <div>
+                <button [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                    Register
+                </button>
+                <a routerLink="/auth/login" class="btn btn-link">Cancel</a>
+            </div>
+            <div *ngIf="message">
+                <p class="text-danger">{{message}}</p>
+            </div>
+        </form>
+    </div>
+</div>
